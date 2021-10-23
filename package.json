@@ -19,7 +19,5 @@
     "tailwindcss": "^2.2.16",
     "vite": "^2.6.4"
   },
-  "dependencies": {
-    "mongodb": "^4.1.3"
-  }
+  "dependencies": {}
 }
