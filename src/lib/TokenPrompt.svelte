@@ -1,7 +1,21 @@
 <script>
   let pat = "";
-  function submit() {
-    // We'll add some code here later.
+  async function submit() {
+    const res = await fetch("/api/storetoken", {
+      body: JSON.stringify({ pat }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    const data = await res.json();
+    if (!res.ok) alert(data.message);
+    else {
+      // Store the PAT in localStorage
+      localStorage.setItem("pat", pat);
+      // Reload the page
+      window.location.reload();
+    }
   }
 </script>
 
