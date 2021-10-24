@@ -1,0 +1,48 @@
+{
+  "background_color": "#ffffff",
+  "description": "Notifies you of new issues and PRs in Github repositories",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable_icon.png",
+      "sizes": "640x640",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "name": "Github Tracker",
+  "orientation": "portrait",
+  "short_name": "GH Tracker",
+  "start_url": "/",
+  "theme_color": "#000000"
+}
