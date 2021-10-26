@@ -41,3 +41,19 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
+self.addEventListener("push", event => {
+  // Double check the push event
+  if (event.data.text() === "new-issue") {
+    event.waitUntil(
+      self.registration.showNotification("New issues", {
+        body: "One or more tracked repositories have new issues or pull requests."
+      })
+    );
+  }
+});
+
+self.addEventListener("notificationclick", event => {
+  event.notification.close();
+  event.waitUntil(clients.openWindow("/"));
+});
