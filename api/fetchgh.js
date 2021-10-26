@@ -53,12 +53,6 @@ module.exports = async (req, res) => {
 
   for await (let user of users) {
     // Send push notifications
-    console.log({
-      tracked: user.trackedRepos,
-      reposWithIssues,
-      a: user.trackedRepos.some(i => reposWithIssues.includes(i)),
-      s: user.subscription
-    });
     if (user.trackedRepos.some(i => reposWithIssues.includes(i))) {
       await webPush.sendNotification(user.subscription, "new-issue");
     }
