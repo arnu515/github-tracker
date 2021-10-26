@@ -1,7 +1,6 @@
 let CACHE_NAME = "cache-" + Date.now();
 
 self.addEventListener("install", event => {
-  console.log("Installed SW");
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.add("/offline.html");
@@ -11,7 +10,6 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  console.log("Activated SW");
   event.waitUntil(
     // Loop through the cache
     caches.keys().then(keys => {
@@ -27,8 +25,6 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  console.log("Fetch:", event.request);
-
   // We only want to send /offline.html when the user is navigating pages,
   // not when they're requesting something else like CSS files or API requests.
   if (event.request.mode !== "navigate") return;
