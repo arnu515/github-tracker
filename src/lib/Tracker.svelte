@@ -7,10 +7,12 @@
   });
 
   async function fetchRepos() {
-    // If there is no PAT, reload the page and end the function
-    if (!localStorage.getItem("pat")) return window.location.reload();
+    // If there is no username, reload the page and end the function
+    if (!localStorage.getItem("username")) return window.location.reload();
 
-    const res = await fetch("/api/listrepos?pat=" + localStorage.getItem("pat"));
+    const res = await fetch(
+      "/api/listrepos?username=" + localStorage.getItem("username")
+    );
     const data = await res.json();
     if (!res.ok) alert(data.message);
     else return data.repositories;
@@ -18,11 +20,11 @@
 
   let repo = "";
   function track() {
-    // If there is no PAT, reload the page and end the function
-    if (!localStorage.getItem("pat")) return window.location.reload();
+    // If there is no username, reload the page and end the function
+    if (!localStorage.getItem("username")) return window.location.reload();
 
     fetch("/api/trackrepo", {
-      body: JSON.stringify({ pat: localStorage.getItem("pat"), repo }),
+      body: JSON.stringify({ username: localStorage.getItem("username"), repo }),
       headers: { "Content-Type": "application/json" },
       method: "POST"
     })
@@ -39,11 +41,11 @@
   }
 
   function untrack(/** @type string*/ repo) {
-    // If there is no PAT, reload the page and end the function
-    if (!localStorage.getItem("pat")) return window.location.reload();
+    // If there is no username, reload the page and end the function
+    if (!localStorage.getItem("username")) return window.location.reload();
 
     fetch("/api/untrackrepo", {
-      body: JSON.stringify({ pat: localStorage.getItem("pat"), repo }),
+      body: JSON.stringify({ username: localStorage.getItem("username"), repo }),
       headers: { "Content-Type": "application/json" },
       method: "POST"
     })

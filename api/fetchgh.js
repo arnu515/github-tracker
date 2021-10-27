@@ -8,7 +8,7 @@ webPush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 );
 
-async function fetchRepo(repo, pat) {
+async function fetchRepo(repo) {
   const mongo = await mongoPromise;
   const fetchedCol = mongo.db().collection("fetched");
   const lastFetchedDoc = await fetchedCol.findOne({}, { sort: { createdAt: -1 } });
@@ -17,10 +17,7 @@ async function fetchRepo(repo, pat) {
   const { data: issues } = await axios.get(
     `https://api.github.com/repos/${repo}/issues?state=open${
       timestamp ? "&since=" + timestamp : ""
-    }`,
-    {
-      headers: { Authorization: "Bearer " + pat }
-    }
+    }`
   );
   if (Array.isArray(issues)) {
     await fetchedCol.insertOne({ createdAt: new Date() });
@@ -30,7 +27,7 @@ async function fetchRepo(repo, pat) {
   return false;
 }
 
-module.exports = async (req, res) => {
+module.exports = async (_, res) => {
   const mongo = await mongoPromise;
   const usersCol = mongo.db().collection("users");
   const users = await usersCol.find().toArray();
@@ -44,7 +41,7 @@ module.exports = async (req, res) => {
     );
     await Promise.all(
       reposToFetch.map(async repo => {
-        const hasNewIssues = await fetchRepo(repo, user._id);
+        const hasNewIssues = await fetchRepo(repo);
         alreadyFetchedRepos.push(repo);
         if (hasNewIssues) reposWithIssues.push(repo);
       })

@@ -1,14 +1,14 @@
 <script>
   import { onMount } from "svelte";
-  import TokenPrompt from "./lib/TokenPrompt.svelte";
+  import UsernamePrompt from "./lib/UsernamePrompt.svelte";
   import Tracker from "./lib/Tracker.svelte";
 
   let isLoggedIn = false;
   /** @type PushSubscription */
   let sub;
   onMount(async () => {
-    // If there is a PAT in the localStorage, set isLoggedIn to true
-    isLoggedIn = !!localStorage.getItem("pat");
+    // If there is a username in the localStorage, set isLoggedIn to true
+    isLoggedIn = !!localStorage.getItem("username");
 
     if ("serviceWorker" in navigator) {
       // Service worker supported
@@ -32,10 +32,10 @@
   });
 
   $: if (sub && isLoggedIn) {
-    // Push notifs have been subscribed to, and there's a PAT in localStorage
-    const pat = localStorage.getItem("pat");
+    // Push notifs have been subscribed to, and there's a username in localStorage
+    const username = localStorage.getItem("username");
     fetch("/api/storeendpoint", {
-      body: JSON.stringify({ pat, subscription: sub.toJSON() }),
+      body: JSON.stringify({ username, subscription: sub.toJSON() }),
       headers: {
         "Content-Type": "application/json"
       },
@@ -45,7 +45,7 @@
 </script>
 
 {#if !isLoggedIn}
-  <TokenPrompt />
+  <UsernamePrompt />
 {:else}
   <Tracker />
 {/if}
